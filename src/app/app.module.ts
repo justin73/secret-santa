@@ -9,7 +9,7 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { ManagememberComponent } from './managemember/managemember.component';
 import { ViewsantaComponent } from './viewsanta/viewsanta.component';
 import { MemberService } from "./service/member.service";
-
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 // Define the routes
 const ROUTES = [
   {
@@ -44,7 +44,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
-  providers: [MemberService],
+  providers: [MemberService,{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

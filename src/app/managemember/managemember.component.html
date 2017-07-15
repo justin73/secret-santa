@@ -11,10 +11,10 @@
           <input type="checkbox" [checked]="member.isMatched">
         </div>
         <div class="col-md-7">
-          {{member.name}}
+          {{member.name}} {{member._id}}
         </div>
         <div class="col-md-4">
-          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteMember(_id)"> 
+          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteMember(member._id)"> 
         </div>
         <br><br>
       </div>

@@ -40,6 +40,7 @@ export class ManagememberComponent implements OnInit {
   }
 
   deleteMember(id){
+    console.log(id);
     const members = this.members;
     this.memberService.deleteMember(id).subscribe(data => {
       if(data.n ==1){
