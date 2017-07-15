@@ -35,7 +35,7 @@ MongoClient.connect('mongodb://meng:meng@ds021751.mlab.com:21751/drawlist', func
       db.collection('drawtable').save(person, function (err, result) {
         if (err) throw err
 
-        res.json(result);
+        res.json(person);
       })
     }
   });

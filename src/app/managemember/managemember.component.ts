@@ -23,7 +23,7 @@ export class ManagememberComponent implements OnInit {
   ngOnInit() {
   }
 
-  getMember(event){
+  addMember(event){
     event.preventDefault();
     let newMember = {
       name: this.memberName,
@@ -32,10 +32,13 @@ export class ManagememberComponent implements OnInit {
 
     this.memberService.addMember(newMember)
       .subscribe(member=>{
+        console.log(member.isMatched)
+        console.log(member.name)
         this.members.push(member);
         this.memberName = "";
       })
   }
+
   deleteMember(id){
     const members = this.members;
     this.memberService.deleteMember(id).subscribe(data => {
