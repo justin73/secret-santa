@@ -23,7 +23,7 @@ export class ManagememberComponent implements OnInit {
   ngOnInit() {
   }
 
-  addMember(event){
+  getMember(event){
     event.preventDefault();
     let newMember = {
       name: this.memberName,

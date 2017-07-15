@@ -1,3 +1,31 @@
-<p>
-  viewsanta works!
-</p>
+<div class="container">
+  <h1>{{title}}</h1>
+  <hr>
+  <form class="well" (submit)="findMatchFor($event)">
+    <div class="form-group">
+      <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="Find a match">
+    </div>
+    <div class="member-list">
+      <div>
+        <div class="col-md-4">
+          Is Assigned?
+        </div><div class="col-md-4">
+          Giver
+        </div><div class="col-md-4">
+          Receiver
+        </div>
+        <br><br>
+      </div>
+      <div *ngFor="let member of result">
+        <div class="col-md-4">
+          <input type="checkbox" [checked]="member.isMatched">
+        </div><div class="col-md-4">
+          {{member.name}}
+        </div><div class="col-md-4">
+          {{member.santa}}
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </form>
+</div>

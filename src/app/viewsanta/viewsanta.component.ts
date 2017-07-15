@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MemberService } from "../service/member.service";
+import { Member } from "../../member";
 
 @Component({
   selector: 'app-viewsanta',
@@ -6,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./viewsanta.component.css']
 })
 export class ViewsantaComponent implements OnInit {
-
-  constructor() { }
+  title = 'I am the Santa to ...?'
+  result: Member[] = [];
+  memberName:string;
+  constructor(private memberService: MemberService) { }
 
   ngOnInit() {
   }
+  findMatchFor(event){
+    this.result = [];
+    event.preventDefault();
+    let member = {
+      name: this.memberName
+    }
 
+    this.memberService.findMember(member)
+      .subscribe(member => {
+        console.log(this.result)
+        this.result.push(member);
+        this.memberName = "";
+      })
+  }
 }

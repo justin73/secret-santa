@@ -15,11 +15,9 @@ MongoClient.connect('mongodb://meng:meng@ds021751.mlab.com:21751/drawlist', func
   });
 
   // Get one member
-  router.get('/draw/:id', function (req, res, next) {
-    var member_id = require('mongodb').ObjectID(req.params.id)
-    db.collection('drawtable').findOne({_id: member_id}, function (err, result) {
+  router.get('/draw/:name', function (req, res, next) {
+    db.collection('drawtable').findOne({name: req.params.name}, function (err, result) {
       if (err) throw err
-
       res.json(result);
     })
   });
