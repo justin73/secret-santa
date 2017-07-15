@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>{{title}}</h1>
+  <hr>
+  <form class="well" (submit)="addMember($event)">
+    <div class="form-group">
+      <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="Add a new family number">
+    </div>
+    <div class="member-list">
+      <div *ngFor="let member of members">
+        <div class="col-md-1">
+          <input type="checkbox" [checked]="member.isMatched">
+        </div>
+        <div class="col-md-7">
+          {{member.name}}
+        </div>
+        <div class="col-md-4">
+          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteMember(_id)"> 
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </form>
+</div>
+
