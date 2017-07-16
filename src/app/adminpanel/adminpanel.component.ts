@@ -59,14 +59,12 @@ export class AdminpanelComponent{
     let result       = {};
     let equal        = true;
 
-    while (equal)
-    {
+    while (equal){
         this.shuffle(this.copy);
         equal  = this.listsEqual();
     }
 
-    for (var i = this.participants.length; i--;)
-    {
+    for (var i = this.participants.length; i--;){
         result[this.participants[i]] = this.copy[i];
     }
     console.log(result);
@@ -74,27 +72,23 @@ export class AdminpanelComponent{
   
   
   listsEqual(){
-    for (var i = this.participants.length; i--;)
-      {
-          if (this.participants[i] === this.copy[i])
-          {
-              return true;
-          }
+    for (var i = this.participants.length; i--;){
+      if (this.participants[i] === this.copy[i]){
+        return true;
       }
+    }
 
-      return false;
+    return false;
   }
   shuffle(list){
     let counter = list.length, temp, index;
 
-    while (counter > 0)
-    {
-        index = Math.floor(Math.random() * counter);
-        counter--;
-
-        temp = list[counter];
-        list[counter] = list[index];
-        list[index] = temp;
+    while (counter > 0){
+      index = Math.floor(Math.random() * counter);
+      counter--;
+      temp = list[counter];
+      list[counter] = list[index];
+      list[index] = temp;
     }   
 
     return list;

@@ -11,7 +11,12 @@ export class MemberService{
               .map(res=> res.json());
     }
 
-
+    updateMembers(members) {
+      const headers = new Headers();
+      headers.append('Content-Type','application/json');
+      return this.http.put('/api/draw', JSON.stringify(members), {headers: headers})
+              .map(res=> res.json())      
+    }
     findMember(member) {
       return this.http.get('/api/draw/'+member.name)
               .map(res=> res.json());
