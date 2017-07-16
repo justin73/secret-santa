@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient
 
 MongoClient.connect('mongodb://meng:meng@ds021751.mlab.com:21751/drawlist', function (err, db) {
   if (err) throw err
-
+  db.collection('drawtable').createIndex({ "_id": 1, "name": 1, "spouse":1 })
   // Get all members
   router.get('/draw', function (req, res, next) {
     db.collection('drawtable').find().toArray(function (err, result) {
@@ -32,7 +32,7 @@ MongoClient.connect('mongodb://meng:meng@ds021751.mlab.com:21751/drawlist', func
         'error': 'Bad Data'
       })
     } else {
-      db.collection('drawtable').save(person, function (err, result) {
+      db.collection('drawtable').save(person, { unique: true }, function (err, result) {
         if (err) throw err
 
         res.json(person);

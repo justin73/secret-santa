@@ -10,7 +10,8 @@ import { Member } from "../../member";
 export class ManagememberComponent implements OnInit {
   title = 'Manage family members'
   members: Member[];
-  memberName: string;
+  memberName: string = "";
+  spouseName: string = "";
   constructor(private memberService:MemberService) { 
     this.memberService.getMembers()
       .subscribe(
@@ -27,20 +28,20 @@ export class ManagememberComponent implements OnInit {
     event.preventDefault();
     let newMember = {
       name: this.memberName,
+      spouse: this.spouseName,
+      santa: '',
       isMatched: false
     }
 
     this.memberService.addMember(newMember)
-      .subscribe(member=>{
-        console.log(member.isMatched)
-        console.log(member.name)
+      .subscribe(member => {
         this.members.push(member);
         this.memberName = "";
+        this.spouseName = "";
       })
   }
 
   deleteMember(id){
-    console.log(id);
     const members = this.members;
     this.memberService.deleteMember(id).subscribe(data => {
       if(data.n ==1){
