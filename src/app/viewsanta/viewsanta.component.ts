@@ -5,7 +5,7 @@ import { Member } from "../../member";
 @Component({
   selector: 'app-viewsanta',
   templateUrl: './viewsanta.component.html',
-  styleUrls: ['./viewsanta.component.css']
+  styleUrls: ['./viewsanta.component.scss']
 })
 export class ViewsantaComponent implements OnInit {
   title = 'I am the Santa to ...?'

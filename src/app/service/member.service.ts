@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers} from "@angular/http";
 import 'rxjs/add/operator/map';
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class MemberService{
@@ -14,8 +15,10 @@ export class MemberService{
     updateMember(member) {
       const headers = new Headers();
       headers.append('Content-Type','application/json');
+      console.log('/api/draw/'+member._id)
       return this.http.put('/api/draw/'+member._id, JSON.stringify(member), {headers: headers})
-              .map(res=> res.json())      
+              .map(res=> res.json())
+              .subscribe(data=> console.log(data));      
     }
 
     findMember(member) {

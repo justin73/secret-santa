@@ -6,7 +6,7 @@ import { forEach, remove, find } from 'lodash';
 @Component({
   selector: 'app-adminpanel',
   templateUrl: './adminpanel.component.html',
-  styleUrls: ['./adminpanel.component.css']
+  styleUrls: ['./adminpanel.component.scss']
 })
 export class AdminpanelComponent{
   title = "Admin Panel";
@@ -26,18 +26,29 @@ export class AdminpanelComponent{
     })
   }
   checkDrawStatus(memberList){
-    forEach(memberList, member => {
-      this.memberList.push(member.name);
-      if (member.spouse) {
-        this.spouseList.push(member.spouse);
-      }
-    });
-    this.spouseList.filter((element) => {
-      if(this.memberList.indexOf(element)<0){
-        this.disableBtn = true;
-        this.missing_member_message = "Oops... It seems like you've forgotten to put someone's name";
-      }
-    })
+    if (this.members.length <= 1){
+      this.missing_member_message = "Please add at least two non-spouse relation participants";
+      this.disableBtn = true;
+    } else {
+
+      // if only two ppl and they are spouses to each other, can't activate the draw
+
+      // if only three and two are spouses, can't activate the draw
+
+      // if there are a couple, then at least the min participants should be 4
+      forEach(memberList, member => {
+        this.memberList.push(member.name);
+        if (member.spouse) {
+          this.spouseList.push(member.spouse);
+        }
+      });
+      this.spouseList.filter((element) => {
+        if(this.memberList.indexOf(element)<0){
+          this.disableBtn = true;
+          this.missing_member_message = "Oops... It seems like you've forgotten to put someone's name";
+        }
+      })
+    }
   }
 
   activateDraw(){
@@ -91,7 +102,8 @@ export class AdminpanelComponent{
       let member = find(this.members, {'name': name})
       member.santa = result[name];
       member.isMatched = true;
-      this.memberService.updateMember(member).subscribe(data=>{});
+      console.log(member);
+      this.memberService.updateMember(member);
     }
   }
 }
