@@ -24,7 +24,6 @@ export class ViewsantaComponent implements OnInit {
 
     this.memberService.findMember(member)
       .subscribe(member => {
-        console.log(this.result)
         this.result.push(member);
         this.memberName = "";
       })

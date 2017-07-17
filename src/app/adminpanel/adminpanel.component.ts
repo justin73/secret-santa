@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from "../service/member.service";
 import { Member } from "../../member";
-import { forEach, remove } from 'lodash';
+import { forEach, remove, find } from 'lodash';
 
 @Component({
   selector: 'app-adminpanel',
@@ -15,10 +15,12 @@ export class AdminpanelComponent{
   memberList = [];
   spouseList = [];
   disableBtn:Boolean = false;
+  showResult:Boolean = false;
   participants = []
   copy=[]
+
   constructor(private memberService: MemberService) { 
-    this.memberService.getMembers().subscribe(members=>{
+    this.memberService.getMembers().subscribe(members => {
       this.members = members;
       this.checkDrawStatus(members);
     })
@@ -39,47 +41,37 @@ export class AdminpanelComponent{
   }
 
   activateDraw(){
-
-    // forEach(this.members, member => {       
-    //   let temp = this.memberList.slice();
-    //   let member_index = temp.indexOf(member.name);
-    //   let spouse_index = temp.indexOf(member.spouse);
-    //   temp.splice(member_index, 1);
-    //   console.log("current member: "+member.name+", spouse:"+member.spouse);
-    //   console.log("after remove the member itself: "+temp)
-    //   if(member.spouse !== ""){
-    //     temp.splice(spouse_index, 1);
-    //     console.log("after remove the member spouse: "+temp)
-    //   }
-    //   console.log("options available: "+temp);
-    // });
-
     this.participants = this.memberList;
     this.copy         = this.participants.slice();
     let result       = {};
     let equal        = true;
-
-    while (equal){
+    
+    // shuffle the list until we find a combination which meets the criteria. 
+    while (equal) {
         this.shuffle(this.copy);
-        equal  = this.listsEqual();
+        equal  = this.listsEqual(this.members);
     }
 
     for (var i = this.participants.length; i--;){
         result[this.participants[i]] = this.copy[i];
     }
-    console.log(result);
+    this.showResult = true;
+    this.saveResult(result);
+
   }
   
-  
-  listsEqual(){
-    for (var i = this.participants.length; i--;){
-      if (this.participants[i] === this.copy[i]){
+  listsEqual(members){
+    // if the element order in the copy is the same as participants or its spouse, then keep shuffling
+    for (let i = this.participants.length; i--;){
+      let member_info = find(members, {"name": this.participants[i]})
+      if (this.participants[i] === this.copy[i] || this.copy[i] === member_info.spouse){
         return true;
       }
     }
 
     return false;
   }
+
   shuffle(list){
     let counter = list.length, temp, index;
 
@@ -92,5 +84,14 @@ export class AdminpanelComponent{
     }   
 
     return list;
+  }
+
+  saveResult(result){
+    for(let name in result){
+      let member = find(this.members, {'name': name})
+      member.santa = result[name];
+      member.isMatched = true;
+      this.memberService.updateMember(member).subscribe(data=>{});
+    }
   }
 }

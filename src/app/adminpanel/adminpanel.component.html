@@ -5,18 +5,33 @@
     <p class="text-danger">{{missing_member_message}}</p>
     <button class="btn btn-primary" [ngClass]="disableBtn? 'disabled': 'active'" (click)="activateDraw()">Activate the draw</button> 
   </div>
-  <!-- <div class="row">
+  <div class="row" *ngIf="showResult">
     <label>Draw Result:</label>
     <div class="container">
+      <div>
+        <div class="col-md-4">
+          Participant
+        </div>
+        <div class="col-md-4">
+          Participant's Spouse
+        </div>
+        <div class="col-md-4">
+          Santa to 
+        </div>
+        <br><br>
+      </div>
       <div *ngFor="let member of members">
         <div class="col-md-4">
           {{member.name}}
         </div>
         <div class="col-md-4">
-           {{member.spouse}}
+          {{member.spouse}}
+        </div>
+        <div class="col-md-4">
+           {{member.santa}}
         </div>
         <br><br>
       </div>
     </div>
-  </div> -->
+  </div> 
 </div>
