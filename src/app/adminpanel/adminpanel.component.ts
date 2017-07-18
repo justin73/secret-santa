@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MemberService } from "../service/member.service";
-import { Member } from "../../member";
-import { forEach, remove, find } from 'lodash';
+import { MemberService } from '../service/member.service';
+import { Member } from '../../member';
+import { forEach, remove, find, includes } from 'lodash';
 
 @Component({
   selector: 'app-adminpanel',
   templateUrl: './adminpanel.component.html',
   styleUrls: ['./adminpanel.component.scss']
 })
-export class AdminpanelComponent{
-  title = "Admin Panel";
+export class AdminpanelComponent implements OnInit {
+  title = 'Admin Panel';
   missing_member_message: string;
+  btnContent: string = 'Activate the draw'
   members: Member[];
   memberList = [];
   spouseList = [];
@@ -19,15 +20,26 @@ export class AdminpanelComponent{
   participants = []
   copy=[]
 
-  constructor(private memberService: MemberService) { 
+  constructor(private memberService: MemberService) {}
+
+  ngOnInit() {
     this.memberService.getMembers().subscribe(members => {
       this.members = members;
+      console.log(members);
       this.checkDrawStatus(members);
     })
   }
-  checkDrawStatus(memberList){
-    if (this.members.length <= 1){
-      this.missing_member_message = "Please add at least two non-spouse relation participants";
+  checkDrawStatus(memberList) {
+    // if the draw was activated before, then show the relations 
+    if (!includes(this.members, 'true')) {
+      this.showResult = true;
+      this.btnContent = 'Re-assign Santas'
+    }
+
+    // checking all the conditions, disabled the button when conditions are not met. 
+    // participants couldn't be one or 0 
+    if (this.members.length <= 1) {
+      this.missing_member_message = 'Please add at least two non-spouse relation participants';
       this.disableBtn = true;
     } else {
 
@@ -43,19 +55,19 @@ export class AdminpanelComponent{
         }
       });
       this.spouseList.filter((element) => {
-        if(this.memberList.indexOf(element)<0){
+        if (this.memberList.indexOf(element)<0) {
           this.disableBtn = true;
-          this.missing_member_message = "Oops... It seems like you've forgotten to put someone's name";
+          this.missing_member_message = 'Oops... It seems like you\'ve forgotten to put someone\'s name';
         }
       })
     }
   }
 
-  activateDraw(){
+  activateDraw() {
     this.participants = this.memberList;
     this.copy         = this.participants.slice();
-    let result       = {};
-    let equal        = true;
+    let result        = {};
+    let equal         = true;
     
     // shuffle the list until we find a combination which meets the criteria. 
     while (equal) {
@@ -63,7 +75,7 @@ export class AdminpanelComponent{
         equal  = this.listsEqual(this.members);
     }
 
-    for (var i = this.participants.length; i--;){
+    for (let i = this.participants.length; i--;) {
         result[this.participants[i]] = this.copy[i];
     }
     this.showResult = true;
@@ -74,7 +86,7 @@ export class AdminpanelComponent{
   listsEqual(members){
     // if the element order in the copy is the same as participants or its spouse, then keep shuffling
     for (let i = this.participants.length; i--;){
-      let member_info = find(members, {"name": this.participants[i]})
+      let member_info = find(members, {'name': this.participants[i]})
       if (this.participants[i] === this.copy[i] || this.copy[i] === member_info.spouse){
         return true;
       }
@@ -102,7 +114,6 @@ export class AdminpanelComponent{
       let member = find(this.members, {'name': name})
       member.santa = result[name];
       member.isMatched = true;
-      console.log(member);
       this.memberService.updateMember(member);
     }
   }

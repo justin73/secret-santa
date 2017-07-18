@@ -3,7 +3,7 @@
   <hr>
   <div class="row">
     <p class="text-danger">{{missing_member_message}}</p>
-    <button class="btn btn-primary" [ngClass]="disableBtn? 'disabled': 'active'" (click)="activateDraw()">Activate the draw</button> 
+    <button class="btn btn-primary" [ngClass]="disableBtn? 'disabled': 'active'" (click)="activateDraw()">{{btnContent}}</button> 
   </div>
   <div class="row" *ngIf="showResult">
     <label>Draw Result:</label>

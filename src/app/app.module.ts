@@ -42,6 +42,7 @@ const ROUTES = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    RouterModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   providers: [MemberService,{ provide: LocationStrategy, useClass: HashLocationStrategy }],

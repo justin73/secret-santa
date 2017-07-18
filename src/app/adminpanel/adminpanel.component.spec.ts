@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminpanelComponent } from './adminpanel.component';
+import { MemberService } from "../service/member.service";
+import { HttpModule } from '@angular/http';
 
 describe('AdminpanelComponent', () => {
   let component: AdminpanelComponent;
@@ -8,7 +10,9 @@ describe('AdminpanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminpanelComponent ]
+      imports: [ HttpModule ],
+      declarations: [ AdminpanelComponent ],
+      providers: [ MemberService ]
     })
     .compileComponents();
   }));
@@ -20,6 +24,12 @@ describe('AdminpanelComponent', () => {
   });
 
   it('should be created', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
+
+  // it('should call checkDrawStatus function when component is defined', () => {
+  //   const checkDrawStatusSpy = spyOn(component, 'checkDrawStatus').and.callThrough();
+  //   component.ngOnInit();
+  //   expect(checkDrawStatusSpy).toHaveBeenCalledWith([]);
+  // })
 });

@@ -1,7 +1,7 @@
 <div class="container">
   <h1>{{title}}</h1>
   <hr>
-  <form class="well" (submit)="findMatchFor($event)">
+  <form class="well" (submit)="findMatchFor()">
     <div class="form-group">
       <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="My Name is ...">
     </div>

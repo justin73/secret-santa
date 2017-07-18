@@ -7,15 +7,13 @@ import { Member } from "../../member";
   templateUrl: './viewsanta.component.html',
   styleUrls: ['./viewsanta.component.scss']
 })
-export class ViewsantaComponent implements OnInit {
+export class ViewsantaComponent {
   title = 'I am the Santa to ...?'
   result: Member[] = [];
   memberName:string;
   constructor(private memberService: MemberService) { }
 
-  ngOnInit() {
-  }
-  findMatchFor(event){
+  findMatchFor(){
     this.result = [];
     event.preventDefault();
     let member = {
