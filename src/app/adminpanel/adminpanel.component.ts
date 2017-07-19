@@ -25,42 +25,55 @@ export class AdminpanelComponent implements OnInit {
   ngOnInit() {
     this.memberService.getMembers().subscribe(members => {
       this.members = members;
-      console.log(members);
       this.checkDrawStatus(members);
     })
   }
   checkDrawStatus(memberList) {
     // if the draw was activated before, then show the relations 
-    if (!includes(this.members, 'true')) {
+    if (includes(this.members, 'true')) {
       this.showResult = true;
       this.btnContent = 'Re-assign Santas'
     }
-
-    // checking all the conditions, disabled the button when conditions are not met. 
-    // participants couldn't be one or 0 
+    /* 
+      checking all the conditions, disabled the button when conditions are not met.
+       1. participants couldn't be one or 0 
+       2. participants couldn't be less than 3 with a couple in them
+       3. with more than 3 participants, the draw will work unconditionally 
+    */
     if (this.members.length <= 1) {
-      this.missing_member_message = 'Please add at least two non-spouse relation participants';
-      this.disableBtn = true;
+      this.disableDraw('Please add at least two non-spouse relation participants');
     } else {
-
-      // if only two ppl and they are spouses to each other, can't activate the draw
-
-      // if only three and two are spouses, can't activate the draw
-
-      // if there are a couple, then at least the min participants should be 4
-      forEach(memberList, member => {
-        this.memberList.push(member.name);
-        if (member.spouse) {
-          this.spouseList.push(member.spouse);
+      if (this.members.length <= 3) {
+        let findCouple = find(this.members, (member) => { return member.spouse != null })
+        if (findCouple) {
+          this.disableDraw('With a couple, there must be at least 4 participants');
+        } else {
+          this.validateParticipants(memberList);
         }
-      });
-      this.spouseList.filter((element) => {
-        if (this.memberList.indexOf(element)<0) {
-          this.disableBtn = true;
-          this.missing_member_message = 'Oops... It seems like you\'ve forgotten to put someone\'s name';
-        }
-      })
+      } else {
+        this.validateParticipants(memberList);
+      }
     }
+  }
+
+  disableDraw(msg){
+    this.missing_member_message = msg;
+    this.disableBtn = true;
+  }
+
+  validateParticipants(memberList){
+    forEach(memberList, member => {
+      this.memberList.push(member.name);
+      if (member.spouse) {
+        this.spouseList.push(member.spouse);
+      }
+    });
+    this.spouseList.filter((element) => {
+      if (this.memberList.indexOf(element)<0) {
+        this.disableBtn = true;
+        this.missing_member_message = 'Oops... It seems like you\'ve forgotten to put someone\'s name';
+      }
+    })
   }
 
   activateDraw() {
@@ -78,9 +91,10 @@ export class AdminpanelComponent implements OnInit {
     for (let i = this.participants.length; i--;) {
         result[this.participants[i]] = this.copy[i];
     }
-    this.showResult = true;
-    this.saveResult(result);
-
+    if (!this.disableBtn){
+      this.showResult = true;
+      this.saveResult(result);
+    }
   }
   
   listsEqual(members){

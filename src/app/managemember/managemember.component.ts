@@ -1,18 +1,18 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, DoCheck } from '@angular/core';
 import { MemberService } from "../service/member.service";
 import { Member } from "../../member";
-import { find } from 'lodash';
+import { forEach, find, includes } from 'lodash';
 
 @Component({
   selector: 'app-managemember',
   templateUrl: './managemember.component.html',
   styleUrls: ['./managemember.component.scss']
 })
-export class ManagememberComponent implements OnInit{
+export class ManagememberComponent implements OnInit, DoCheck{
   title = 'Manage family members'
   members: Member[];
-  memberName: string = "";
-  spouseName: string = "";
+  @Input() memberName: string = "";
+  @Input() spouseName: string = "";
   errorMsg:string;
   disableBtn: Boolean = true;
 
@@ -25,55 +25,90 @@ export class ManagememberComponent implements OnInit{
       }
     )
   }
-
-  checkNameEmpty(event){
-    if(this.memberName.length >= 1){
+  ngDoCheck() {
+    if (this.memberName.length>0) {
       this.disableBtn = false;
     } else {
       this.disableBtn = true;
     }
   }
 
-  addMember(event){
+  validateMember(event) {
     event.preventDefault();
     let newMember = {
       name: this.memberName,
-      spouse: this.spouseName,
+      spouse: this.spouseName.trim() == "" ? null : this.spouseName,
       santa: '',
       isMatched: false
     }
-    let existing = find(this.members, {"name": newMember.name})
-    if(this.memberName.length > 0){
-      if(existing){
-        this.errorMsg = "Can't add existing participants"
-      }else{
-        let existing_spouse = find(this.members, {"spouse":this.memberName})
-        if(existing_spouse){
-          if (existing_spouse.name != this.spouseName){
-            this.errorMsg = "Are you sure you entered your spouse's name right? ;-)"
-          } else {
-            this.memberService.addMember(newMember)
-            .subscribe(member => {
-              this.members.push(member);
-              this.memberName = "";
-              this.spouseName = "";
-              this.errorMsg = "";
-            })
-          }
-        }else{
-          this.memberService.addMember(newMember)
-            .subscribe(member => {
-              this.members.push(member);
-              this.memberName = "";
-              this.spouseName = "";
-              this.errorMsg = "";
-            })
-        }
+
+    if (this.memberName.length > 0) {
+      if (this.hasDuplicates(newMember) || this.mismatchSpouse(newMember)) {
+        this.setErrorMsg("duplicates | spouse mismatch");
+      } else {
+        this.saveMember(newMember);
       }
     }
   }
+  
+  hasDuplicates(newMember) {
+    let existing = find(this.members, {"name": newMember.name})
+    return existing
+  }
 
-  deleteMember(id){
+  mismatchSpouse(newMember) {
+    // if add someone who doesn't have spouse as spouse
+    if (this. wrongSpouseName() || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  wrongSpouseName() {
+    let existing_spouse = find(this.members, {"spouse":this.memberName})
+    if (existing_spouse) {
+      if (existing_spouse.name != this.spouseName) {
+        return true
+      }
+    }
+  }
+  // add someone who is already the spouse to other ppl 
+  multipeToOneSpouse(newMember) {
+    let existingSpouseList: string[] = []
+    forEach(this.members, (element) => {
+      if (element.spouse) {
+        existingSpouseList.push(element.spouse)
+      }
+    })
+    if (includes(existingSpouseList, newMember.spouse)) {
+      return true
+    }
+
+  }
+  // add someone who doesn't have spouse as your spouse
+  forceSpouse(newMember) {
+    let spouse = find(this.members, {"name": newMember.spouse})
+    if (spouse && (!spouse.spouse || spouse.spouse != newMember.name)){
+      return true
+    }
+  }
+
+  setErrorMsg(msg) {
+    this.errorMsg = msg;
+  }
+
+  saveMember(newMember) {
+    this.memberService.addMember(newMember)
+      .subscribe(member => {
+        this.members.push(member);
+        this.memberName = "";
+        this.spouseName = "";
+        this.errorMsg = "";
+      })
+  }
+
+  deleteMember(id) {
     const members = this.members;
     this.memberService.deleteMember(id).subscribe(data => {
       if(data.n ==1){
