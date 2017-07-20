@@ -27,7 +27,7 @@ export class ViewsantaComponent {
           this.errorMsg = "";
           this.memberName = "";
         } else {
-          this.errorMsg = `There is no paricipant named ${this.memberName}`
+          this.errorMsg = `There is no member named ${this.memberName}`
         }
       })
   }

@@ -13,11 +13,23 @@
       <button class="btn btn-primary submit" [ngClass]="disableBtn? 'disabled': 'active'" (click)="validateMember()">Add A Family Member</button>
     </div>
     <div class="member-list">
-      <div *ngFor="let member of members">
-        <div class="col-md-1">
-          <input type="checkbox" [checked]="member.isMatched">
+      <div>
+        <div class="col-md-3">
+          Is Assigned
         </div>
-        <div class="col-md-7">
+        <div class="col-md-5">
+          Name
+        </div>
+        <div class="col-md-4">
+          Operation 
+        </div>
+        <br><br>
+      </div>
+      <div *ngFor="let member of members">
+        <div class="col-md-3">
+          <input type="checkbox" [checked]="member.isMatched" disabled>
+        </div>
+        <div class="col-md-5">
           {{member.name}}
         </div>
         <div class="col-md-4">
