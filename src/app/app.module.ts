@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { HomeComponentComponent } from './home-component/home-component.component';
+import { HomeComponent } from './home/home.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { ManagememberComponent } from './managemember/managemember.component';
 import { ViewsantaComponent } from './viewsanta/viewsanta.component';
@@ -14,7 +14,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 const ROUTES = [
   {
     path: '',
-    component: HomeComponentComponent
+    component: HomeComponent
   },
   {
     path: 'admin-port',
@@ -33,7 +33,7 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponentComponent,
+    HomeComponent,
     AdminpanelComponent,
     ManagememberComponent,
     ViewsantaComponent

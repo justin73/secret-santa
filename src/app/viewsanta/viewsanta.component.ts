@@ -24,6 +24,7 @@ export class ViewsantaComponent {
       .subscribe((member) => {
         if(member) {
           this.result.push(member);
+          this.errorMsg = "";
           this.memberName = "";
         } else {
           this.errorMsg = `There is no paricipant named ${this.memberName}`
