@@ -1,28 +1,32 @@
 # MySecretSanta
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
+This project was 
 
-## Development server
+This is a MEAN (MongoDB, Express, Angular2 and Nodejs) project. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Since DB is not required, so I didn't put too much time into developing a well structured database schema. Just for a sake of accessing data easily, a simple DB table is setup where stores all the participants information and status.
 
-## Code scaffolding
+The server end setup consists of server.js and /routes folder
+routes/draw.js is the express file which is used to setup an API to access the MongoDB
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+Front end uses Angular2 and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
+  
 
-## Build
+## Run it on your machine
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+1. Clone the repo to your local machine
+2. Run `npm install`
+3. Run `ng start` for a dev server. Navigate to `http://localhost:4200/`.
+
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test-coverage` to create unit test report in your root folder, open index.html to view the coverage.
 
-## Running end-to-end tests
+Some stats of the current Code Coverage
+`94.25% Statements 213/226 71.64% Branches 48/67 98.15% Functions 53/54 94.23% Lines 196/208`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Some Detailed Implementation of the application:
+1. 
