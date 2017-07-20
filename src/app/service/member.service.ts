@@ -16,8 +16,7 @@ export class MemberService{
       const headers = new Headers();
       headers.append('Content-Type','application/json');
       return this.http.put('http://localhost:4200/api/draw/'+member._id, JSON.stringify(member), {headers: headers})
-              .map(res=> res.json())
-              .subscribe();      
+              .map(res=> res.json());      
     }
 
     findMember(member) {

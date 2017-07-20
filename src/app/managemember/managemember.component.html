@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
       <p class="text-danger">{{errorMsg}}</p>
-      <button class="btn btn-primary submit" [ngClass]="disableBtn? 'disabled': 'active'" (click)="validateMember($event)">Add A Family Member</button>
+      <button class="btn btn-primary submit" [ngClass]="disableBtn? 'disabled': 'active'" (click)="validateMember()">Add A Family Member</button>
     </div>
     <div class="member-list">
       <div *ngFor="let member of members">

@@ -3,4 +3,5 @@ export class Member {
     name: string;
     isMatched: boolean;
     spouse: string;
+    santa: string;
 }

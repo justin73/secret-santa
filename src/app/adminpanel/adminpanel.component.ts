@@ -128,7 +128,9 @@ export class AdminpanelComponent implements OnInit {
       let member = find(this.members, {'name': name})
       member.santa = result[name];
       member.isMatched = true;
-      this.memberService.updateMember(member);
+      this.memberService.updateMember(member).subscribe(data => {
+        member = data;
+      });
     }
   }
 }

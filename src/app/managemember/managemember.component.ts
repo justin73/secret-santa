@@ -25,6 +25,7 @@ export class ManagememberComponent implements OnInit, DoCheck{
       }
     )
   }
+
   ngDoCheck() {
     if (this.memberName.length>0) {
       this.disableBtn = false;
@@ -33,8 +34,7 @@ export class ManagememberComponent implements OnInit, DoCheck{
     }
   }
 
-  validateMember(event) {
-    event.preventDefault();
+  validateMember() {
     let newMember = {
       name: this.memberName,
       spouse: this.spouseName.trim() == "" ? null : this.spouseName,
@@ -42,7 +42,7 @@ export class ManagememberComponent implements OnInit, DoCheck{
       isMatched: false
     }
 
-    if (this.memberName.length > 0) {
+    if (newMember.name.length > 0) {
       if (this.hasDuplicates(newMember) || this.mismatchSpouse(newMember)) {
         this.setErrorMsg("duplicates | spouse mismatch");
       } else {
@@ -57,18 +57,17 @@ export class ManagememberComponent implements OnInit, DoCheck{
   }
 
   mismatchSpouse(newMember) {
-    // if add someone who doesn't have spouse as spouse
-    if (this. wrongSpouseName() || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
+    if (this. getWrongSpouseName(newMember) || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
       return true
     } else {
       return false
     }
   }
 
-  wrongSpouseName() {
-    let existing_spouse = find(this.members, {"spouse":this.memberName})
+  getWrongSpouseName(newMember) {
+    let existing_spouse = find(this.members, {"spouse":newMember.name})
     if (existing_spouse) {
-      if (existing_spouse.name != this.spouseName) {
+      if (existing_spouse.name != newMember.spouse) {
         return true
       }
     }

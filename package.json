@@ -7,6 +7,7 @@
     "start": "ng build && node server.js",
     "build": "ng build",
     "test": "ng test --watch=true",
+    "test-coverage": "ng test --watch=true --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

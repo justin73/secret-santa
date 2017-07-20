@@ -15,7 +15,6 @@ export class ViewsantaComponent {
 
   findMatchFor(){
     this.result = [];
-    event.preventDefault();
     let member = {
       name: this.memberName
     }
