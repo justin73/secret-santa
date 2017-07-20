@@ -11,6 +11,7 @@ export class ViewsantaComponent {
   title = 'I am the Santa to ...?'
   result: Member[] = [];
   memberName:string;
+  errorMsg: string;
   constructor(private memberService: MemberService) { }
 
   findMatchFor(){
@@ -20,9 +21,13 @@ export class ViewsantaComponent {
     }
 
     this.memberService.findMember(member)
-      .subscribe(member => {
-        this.result.push(member);
-        this.memberName = "";
+      .subscribe((member) => {
+        if(member) {
+          this.result.push(member);
+          this.memberName = "";
+        } else {
+          this.errorMsg = `There is no paricipant named ${this.memberName}`
+        }
       })
   }
 }

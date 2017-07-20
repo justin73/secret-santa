@@ -57,13 +57,21 @@ export class ManagememberComponent implements OnInit, DoCheck{
   }
 
   mismatchSpouse(newMember) {
-    if (this. getWrongSpouseName(newMember) || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
+    if (this.isSamePerson(newMember) || this. getWrongSpouseName(newMember) || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
       return true
     } else {
       return false
     }
   }
-
+  // member can't have itself as spouse
+  isSamePerson(newMember) {
+    if(newMember.name == newMember.spouse) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   getWrongSpouseName(newMember) {
     let existing_spouse = find(this.members, {"spouse":newMember.name})
     if (existing_spouse) {

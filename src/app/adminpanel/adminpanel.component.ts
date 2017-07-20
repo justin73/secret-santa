@@ -25,12 +25,12 @@ export class AdminpanelComponent implements OnInit {
   ngOnInit() {
     this.memberService.getMembers().subscribe(members => {
       this.members = members;
-      this.checkDrawStatus(members);
+      this.checkDrawStatus(this.members);
     })
   }
-  checkDrawStatus(memberList) {
+  checkDrawStatus(members) {
     // if the draw was activated before, then show the relations 
-    if (includes(this.members, 'true')) {
+    if (find(members, ['isMatched', true])) {
       this.showResult = true;
       this.btnContent = 'Re-assign Santas'
     }
@@ -48,10 +48,10 @@ export class AdminpanelComponent implements OnInit {
         if (findCouple) {
           this.disableDraw('With a couple, there must be at least 4 participants');
         } else {
-          this.validateParticipants(memberList);
+          this.validateParticipants(members);
         }
       } else {
-        this.validateParticipants(memberList);
+        this.validateParticipants(members);
       }
     }
   }

@@ -4,6 +4,7 @@
   <form class="well" (submit)="findMatchFor()">
     <div class="form-group">
       <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="My Name is ...">
+      <p class="text-danger">{{errorMsg}}</p>
     </div>
     <div class="member-list">
       <div>
