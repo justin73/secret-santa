@@ -17,7 +17,7 @@ export class ViewsantaComponent {
   findMatchFor(){
     this.result = [];
     let member = {
-      name: this.memberName
+      name: this.memberName.toLocaleLowerCase()
     }
 
     this.memberService.findMember(member)

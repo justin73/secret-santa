@@ -75,7 +75,7 @@ According to the given User Stories shown in the project description, there are 
  - The draw cannot be activated if someone's spouse is missing, since all members must participate the draw
 
 2. Implict conditions for adding participants:
- - Name duplicate is not allowed, since app pariticpants have unique names
+ - Name duplicate is not allowed, since app pariticpants have unique names, all names are casted to lower case
  - Can't add someone who has spouse but the spouse doesn't have a partner
  - Can't add someone who has spouse but the spouse's partner is not this person
  - Can't add someone whose spouse is itself

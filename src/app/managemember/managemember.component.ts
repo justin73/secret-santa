@@ -36,8 +36,8 @@ export class ManagememberComponent implements OnInit, DoCheck{
 
   validateMember() {
     let newMember = {
-      name: this.memberName,
-      spouse: this.spouseName.trim() == "" ? null : this.spouseName,
+      name: this.memberName.toLocaleLowerCase(),
+      spouse: this.spouseName.trim() == "" ? null : this.spouseName.toLocaleLowerCase(),
       santa: '',
       isMatched: false
     }
