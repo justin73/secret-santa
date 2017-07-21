@@ -15,12 +15,15 @@
     <div class="member-list">
       <div>
         <div class="col-md-3">
-          Is Assigned
+          Assigned
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           Name
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          Spouse
+        </div>
+        <div class="col-md-3">
           Operation 
         </div>
         <br><br>
@@ -29,10 +32,13 @@
         <div class="col-md-3">
           <input type="checkbox" [checked]="member.isMatched" disabled>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           {{member.name}}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          {{member.spouse}}
+        </div>
+        <div class="col-md-3">
           <input type="button" value="Delete" class="btn btn-danger" (click)="deleteMember(member._id)"> 
         </div>
         <br><br>
