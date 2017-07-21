@@ -54,11 +54,11 @@ Run `npm run test-coverage` to create unit test report in your root folder, open
 | DELETE | /draw/:id     | Delete a participant by its id                                               |
 
 2. On the front-end, the application consists of 4 components and one service
-..1. HomeComponent         : The index page to show the basic routes to different pages
-..2. AdminpanelComponent   : The page where admin can (re)start the draw and view the draw results of everyone
-..3. ViewstanaComponent    : The page where anybody can access the results of everyone in the draw by                                          searching their names
-..4. ManagememberComponent : The page to add/delete participants
-..5. memberService         : The http service to call the endpoint to retrieve, update, delete data.
+    - HomeComponent         : The index page to show the basic routes to different pages
+    - AdminpanelComponent   : The page where admin can (re)start the draw and view the draw results of everyone
+    - ViewstanaComponent    : The page where anybody can access the results of everyone in the draw by                                          searching their names
+    - ManagememberComponent : The page to add/delete participants
+    - memberService         : The http service to call the endpoint to retrieve, update, delete data.
 
 3. Unit test (jasmine)
 Current code coverage
@@ -70,14 +70,16 @@ Current code coverage
 
 According to the given User Stories shown in the project description, there are few pre-existing conditions (data validation )to be applied the draw: 
 1. One member cannot draw himself or its spouse, so there are 3 implicit conditions:
- ⋅⋅1. The draw cannot be activated if there is 0 or 1 ppl. (ppl<=1)
- ..2. The draw cannot be activated if there are less than 4 ppl including a couple (ppl<=3)
- ..3. The draw cannot be activated if someone's spouse is missing, since all members must participate the draw
+ - The draw cannot be activated if there is 0 or 1 ppl. (ppl<=1)
+ - The draw cannot be activated if there are less than 4 ppl including a couple (ppl<=3)
+ - The draw cannot be activated if someone's spouse is missing, since all members must participate the draw
+
 2. Implict conditions for adding participants:
- ..1. Name duplicate is not allowed, since app pariticpants have unique names
- ..2. Can't add someone who has spouse but the spouse doesn't have a partner
- ..3. Can't add someone who has spouse but the spouse's partner is not this person
- ..4. Can't add someone whose spouse is itself
+ - Name duplicate is not allowed, since app pariticpants have unique names
+ - Can't add someone who has spouse but the spouse doesn't have a partner
+ - Can't add someone who has spouse but the spouse's partner is not this person
+ - Can't add someone whose spouse is itself
+
 3. Since this is an honor system, so all paricipants can acecess to the results of anybody in the draw, so there is no limition for the search part. 
 
 
