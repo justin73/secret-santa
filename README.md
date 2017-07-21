@@ -19,7 +19,7 @@
 
 This is a MEAN (MongoDB, Express, Angular2 and Nodejs) project.
 
-Since DB is not required, so I didn't put too much time into developing a well structured database schema. Just for a sake of accessing data easily, a simple DB table is setup where stores all the participants information and status.
+Since DB is not required, so I didn't put too much time into developing a well structured database schema. Just for the sake of accessing data easily, a simple table is setup where stores all the participants information and status.
 
 The server end setup consists of server.js and /routes folder
 routes/draw.js is the express file which is used to setup an API to access the MongoDB
@@ -87,5 +87,5 @@ Due to the time limitation and the project scope(front-end project), there are i
 - [ ] Add CSS and better layout improve UI using Angular Material (since UI is not part of the evalution, so I          basically skipped it for now)
 - [ ] Move the data validation from front-end to back-end
 - [ ] End-to-end testing using protractor
-- [ ] Setup admin login logic so that only admin will have the right to view the application wide scope of data
+- [ ] Setup admin login logic so that only admin will have the right to view the application wide scope of data         and manage participants
 
