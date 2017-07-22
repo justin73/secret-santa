@@ -10,6 +10,7 @@ import { Member } from '../../member';
 export class ViewsantaComponent {
   title = 'I am the Santa to ...?';
   result: Member[] = [];
+  showResult: Boolean = false;
   memberName: string;
   errorMsg: string;
   constructor(private memberService: MemberService) { }
@@ -23,6 +24,7 @@ export class ViewsantaComponent {
     this.memberService.findMember(member)
       .subscribe((element) => {
         if (element) {
+          this.showResult = true;
           this.result.push(element);
           this.errorMsg = '';
           this.memberName = '';
