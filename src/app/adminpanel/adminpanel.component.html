@@ -1,34 +1,35 @@
-<div class="container">
+<div class="container page_wrapper">
   <h1>{{title}}</h1>
-  <hr>
-  <div class="row">
+  <div class="row button_container">
+    <hr>
     <p class="text-danger">{{missing_member_message}}</p>
-    <button class="btn btn-primary" [ngClass]="disableBtn? 'disabled': 'active'" (click)="activateDraw()">{{btnContent}}</button> 
+    <button class="btn btn-primary" [ngClass]="disableBtn? 'disabled': 'active'" (click)="activateDraw()">{{btnContent}}</button>
+    <hr> 
   </div>
-  <div class="row" *ngIf="showResult">
-    <label>Draw Result:</label>
+  <div class="row result_container" *ngIf="showResult">
+    <label>Draw Result</label>
     <div class="container">
-      <div>
+      <div class="title_container">
         <div class="col-md-4">
-          Participant
+         <label class="title">Participant</label> 
         </div>
         <div class="col-md-4">
-          Participant's Spouse
+          <label class="title">Participant's Spouse</label>
         </div>
         <div class="col-md-4">
-          Santa to 
+          <label class="title">Santa to</label>
         </div>
         <br><br>
       </div>
-      <div *ngFor="let member of members">
+      <div class="item_container" *ngFor="let member of members">
         <div class="col-md-4">
-          {{member.name}}
+          <label>{{member.name}}</label>
         </div>
         <div class="col-md-4">
-          {{member.spouse}}
+          <label>{{member.spouse}}</label>
         </div>
         <div class="col-md-4">
-           {{member.santa}}
+           <label>{{member.santa}}</label>
         </div>
         <br><br>
       </div>

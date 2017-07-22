@@ -1,32 +1,34 @@
-<div class="container">
+<div class="container page_wrapper">
   <h1>{{title}}</h1>
-  <hr>
   <form class="well" (submit)="findMatchFor()">
+    <hr>
     <div class="form-group">
       <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="My Name is ...">
-      <p class="text-danger">{{errorMsg}}</p>
-    </div>
-    <div class="member-list">
-      <div>
-        <div class="col-md-4">
-          Is Assigned?
-        </div><div class="col-md-4">
-          Giver
-        </div><div class="col-md-4">
-          Receiver
-        </div>
-        <br><br>
-      </div>
-      <div *ngFor="let member of result">
-        <div class="col-md-4">
-          <input type="checkbox" [checked]="member.isMatched">
-        </div><div class="col-md-4">
-          {{member.name}}
-        </div><div class="col-md-4">
-          {{member.santa}}
-        </div>
-        <br><br>
-      </div>
+      <p class="text-secondary">{{errorMsg}}</p>
     </div>
   </form>
+  <div class="member_list_container">
+    <div class="member_list">
+      <div class="title_container">
+        <div class="col-md-4">
+          <label class="title">Is Assigned?</label>
+        </div><div class="col-md-4">
+          <label class="title">Giver</label>
+        </div><div class="col-md-4">
+          <label class="title">Receiver</label>
+        </div>
+        <br><br>
+      </div>
+      <div class="item_container" *ngFor="let member of result">
+        <div class="col-md-4">
+          <input type="checkbox" [checked]="member.isMatched" disabled>
+        </div><div class="col-md-4">
+          <label>{{member.name}}</label>
+        </div><div class="col-md-4">
+          <label>{{member.santa}}</label>
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </div>
 </div>

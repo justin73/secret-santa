@@ -1,49 +1,51 @@
-<div class="container">
+<div class="container page_wrapper">
   <h1>{{title}}</h1>
-  <hr>
-  <form class="well" >
-    <div class="form-group">
+  <form class="well container" >
+    <hr>
+    <div class="name_container form-group col-md-6 offset-md-3">
       <input type="text" class="form-control" [(ngModel)]="memberName" name="memberName" placeholder="Your Name" >
     </div>
-    <div class="form-group">
+    <div class="name_container form-group col-md-6 offset-md-3">
       <input type="text" class="form-control" [(ngModel)]="spouseName" name="spouseName" placeholder="Enter your spouse's name if appliable">
     </div>
-    <div class="form-group">
-      <p class="text-danger">{{errorMsg}}</p>
+    <div class="button_container form-group col-md-4 offset-md-4">
+      <p class="text-secondary">{{errorMsg}}</p>
       <button class="btn btn-primary submit" [ngClass]="disableBtn? 'disabled': 'active'" (click)="validateMember()">Add A Family Member</button>
     </div>
-    <div class="member-list">
-      <div>
+  </form>
+  <div class="member_list_container">
+    <div class="member_list">
+      <div class="title_container">
         <div class="col-md-3">
-          Assigned
+          <label class="title">Assigned</label>
         </div>
         <div class="col-md-3">
-          Name
+          <label class="title">Name</label>
         </div>
         <div class="col-md-3">
-          Spouse
+          <label class="title">Spouse</label>
         </div>
         <div class="col-md-3">
-          Operation 
+          <label class="title">Operation</label>
         </div>
         <br><br>
       </div>
-      <div *ngFor="let member of members">
+      <div class="item_container" *ngFor="let member of members">
         <div class="col-md-3">
           <input type="checkbox" [checked]="member.isMatched" disabled>
         </div>
         <div class="col-md-3">
-          {{member.name}}
+          <label>{{member.name}}</label>
         </div>
         <div class="col-md-3">
-          {{member.spouse}}
+          <label>{{member.spouse}}</label>
         </div>
         <div class="col-md-3">
-          <input type="button" value="Delete" class="btn btn-danger" (click)="deleteMember(member._id)"> 
+          <input type="button" value="Delete" class="btn btn-secondary" (click)="deleteMember(member._id)"> 
         </div>
         <br><br>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 

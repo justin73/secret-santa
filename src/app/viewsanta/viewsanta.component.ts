@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MemberService } from "../service/member.service";
-import { Member } from "../../member";
+import { MemberService } from '../service/member.service';
+import { Member } from '../../member';
 
 @Component({
   selector: 'app-viewsanta',
@@ -8,27 +8,27 @@ import { Member } from "../../member";
   styleUrls: ['./viewsanta.component.scss']
 })
 export class ViewsantaComponent {
-  title = 'I am the Santa to ...?'
+  title = 'I am the Santa to ...?';
   result: Member[] = [];
-  memberName:string;
+  memberName: string;
   errorMsg: string;
   constructor(private memberService: MemberService) { }
 
-  findMatchFor(){
+  findMatchFor() {
     this.result = [];
-    let member = {
+    const member = {
       name: this.memberName.toLocaleLowerCase()
-    }
+    };
 
     this.memberService.findMember(member)
-      .subscribe((member) => {
-        if(member) {
-          this.result.push(member);
-          this.errorMsg = "";
-          this.memberName = "";
+      .subscribe((element) => {
+        if (element) {
+          this.result.push(element);
+          this.errorMsg = '';
+          this.memberName = '';
         } else {
-          this.errorMsg = `There is no member named ${this.memberName}`
+          this.errorMsg = `There is no member named ${this.memberName}`;
         }
-      })
+      });
   }
 }

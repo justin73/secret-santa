@@ -1,5 +1,5 @@
-import { AppComponent } from "./app.component";
-import { NgModule } from "@angular/core";
+import { AppComponent, ChildComponent } from './app.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { ManagememberComponent } from './managemember/managemember.component';
 import { ViewsantaComponent } from './viewsanta/viewsanta.component';
-import { MemberService } from "./service/member.service";
+import { MemberService } from './service/member.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 // Define the routes
 const ROUTES = [
@@ -36,7 +36,8 @@ const ROUTES = [
     HomeComponent,
     AdminpanelComponent,
     ManagememberComponent,
-    ViewsantaComponent
+    ViewsantaComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,7 @@ const ROUTES = [
     RouterModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
-  providers: [MemberService,{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [MemberService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

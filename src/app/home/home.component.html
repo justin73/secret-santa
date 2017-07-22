@@ -1,11 +1,31 @@
 <div class="container">
-  <div class="row">
+  <div class="row title_container">
     <h1>{{title}}</h1>
-    <p>{{info.author}}</p>
-    <p>{{info.stack}}</p>
+    <br>
+    <br>
     <hr>
-    <nav>
-      <a routerLink="admin-port">Start the draw</a> | <a routerLink="manage-members">Manage Participants</a> | <a routerLink="check-santa">Check Status</a>
+    <nav class="navbar navbar-toggleable-md navbar-light">
+      <ul class="navbar-nav container">
+        <li class="nav-item col-md-4">
+          <a class="nav-link" routerLink="admin-port">Start the Draw</a>
+        </li>
+        <li class="nav-item col-md-4">
+          <a class="nav-link" routerLink="manage-members">Manage Participants</a>
+        </li>
+        <li class="nav-item col-md-4">
+          <a class="nav-link" routerLink="check-santa">Check Status</a>
+        </li>
+      </ul>
     </nav>
+    <hr>
+    <div class="logo_container">
+      <div class="logo"></div>
+    </div>
+    <div class="copy_right">
+      <br>
+      <br>
+      <p class="author">{{info.author}}</p>
+      <p class="project_info">{{info.stack}}</p>
+    </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, DoCheck } from '@angular/core';
-import { MemberService } from "../service/member.service";
-import { Member } from "../../member";
+import { MemberService } from '../service/member.service';
+import { Member } from '../../member';
 import { forEach, find, includes } from 'lodash';
 
 @Component({
@@ -8,26 +8,26 @@ import { forEach, find, includes } from 'lodash';
   templateUrl: './managemember.component.html',
   styleUrls: ['./managemember.component.scss']
 })
-export class ManagememberComponent implements OnInit, DoCheck{
-  title = 'Manage family members'
+export class ManagememberComponent implements OnInit, DoCheck {
+  title = 'Manage family members';
   members: Member[];
-  @Input() memberName: string = "";
-  @Input() spouseName: string = "";
-  errorMsg:string;
+  @Input() memberName = '';
+  @Input() spouseName = '';
+  errorMsg: string;
   disableBtn: Boolean = true;
 
-  constructor(private memberService:MemberService) {}
+  constructor(private memberService: MemberService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.memberService.getMembers().subscribe(
       members => {
         this.members = members;
       }
-    )
+    );
   }
 
   ngDoCheck() {
-    if (this.memberName.length>0) {
+    if (this.memberName.length > 0) {
       this.disableBtn = false;
     } else {
       this.disableBtn = true;
@@ -35,69 +35,70 @@ export class ManagememberComponent implements OnInit, DoCheck{
   }
 
   validateMember() {
-    let newMember = {
+    const newMember = {
       name: this.memberName.toLocaleLowerCase(),
-      spouse: this.spouseName.trim() == "" ? null : this.spouseName.toLocaleLowerCase(),
+      spouse: this.spouseName.trim() === '' ? null : this.spouseName.toLocaleLowerCase(),
       santa: '',
       isMatched: false
-    }
+    };
 
     if (newMember.name.length > 0) {
       if (this.hasDuplicates(newMember) || this.mismatchSpouse(newMember)) {
-        this.setErrorMsg("duplicates | spouse mismatch");
+        this.setErrorMsg('duplicates | spouse mismatch');
       } else {
         this.saveMember(newMember);
       }
     }
   }
-  
+
   hasDuplicates(newMember) {
-    let existing = find(this.members, {"name": newMember.name})
-    return existing
+    const existing = find(this.members, {'name': newMember.name});
+    return existing;
   }
 
   mismatchSpouse(newMember) {
-    if (this.isSamePerson(newMember) || this. getWrongSpouseName(newMember) || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
-      return true
-    } else {
-      return false
-    }
-  }
-  // member can't have itself as spouse
-  isSamePerson(newMember) {
-    if(newMember.name == newMember.spouse) {
+    if (this.isSamePerson(newMember) || this. getWrongSpouseName(newMember)
+      || this.multipeToOneSpouse(newMember) || this.forceSpouse(newMember)) {
       return true;
     } else {
       return false;
     }
   }
-  
+  // member can't have itself as spouse
+  isSamePerson(newMember) {
+    if (newMember.name === newMember.spouse) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getWrongSpouseName(newMember) {
-    let existing_spouse = find(this.members, {"spouse":newMember.name})
+    const existing_spouse = find(this.members, {'spouse': newMember.name});
     if (existing_spouse) {
-      if (existing_spouse.name != newMember.spouse) {
-        return true
+      if (existing_spouse.name !== newMember.spouse) {
+        return true;
       }
     }
   }
-  // add someone who is already the spouse to other ppl 
+  // add someone who is already the spouse to other ppl
   multipeToOneSpouse(newMember) {
-    let existingSpouseList: string[] = []
+    const existingSpouseList: string[] = [];
     forEach(this.members, (element) => {
       if (element.spouse) {
-        existingSpouseList.push(element.spouse)
+        existingSpouseList.push(element.spouse);
       }
-    })
+    });
     if (includes(existingSpouseList, newMember.spouse)) {
-      return true
+      return true;
     }
 
   }
   // add someone who doesn't have spouse as your spouse
   forceSpouse(newMember) {
-    let spouse = find(this.members, {"name": newMember.spouse})
-    if (spouse && (!spouse.spouse || spouse.spouse != newMember.name)){
-      return true
+    const spouse = find(this.members, {'name': newMember.spouse});
+    if (spouse && (!spouse.spouse || spouse.spouse !== newMember.name)) {
+      return true;
     }
   }
 
@@ -109,22 +110,22 @@ export class ManagememberComponent implements OnInit, DoCheck{
     this.memberService.addMember(newMember)
       .subscribe(member => {
         this.members.push(member);
-        this.memberName = "";
-        this.spouseName = "";
-        this.errorMsg = "";
-      })
+        this.memberName = '';
+        this.spouseName = '';
+        this.errorMsg = '';
+      });
   }
 
   deleteMember(id) {
     const members = this.members;
     this.memberService.deleteMember(id).subscribe(data => {
-      if(data.n ==1){
-        for(let i=0; i<members.length;i++){
-          if(members[i]._id == id){
+      if (data.n === 1) {
+        for (let i = 0; i < members.length; i++) {
+          if (members[i]._id === id) {
             members.splice(i, 1);
           }
         }
       }
-    })
+    });
   }
 }

@@ -1,3 +1,50 @@
-nav{
-    display: block;
+.container{
+    font-weight: 100;
+    background-color: #c10c06;
+    width: 100%;
+    color: #f4f4f4;
+    .title_container{
+        text-align: center;
+        h1,p{
+            font-weight: 100;
+            color: #f4f4f4;
+        }
+    }
+    nav{
+        display: block;
+        ul{
+            margin: 0px;
+            .nav-item {
+                list-style: none;
+                text-align: center;
+                margin: 0px;
+                .nav-link{
+                    font-weight: 100;
+                    color: #f4f4f4;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+    .logo_container{
+        width: 100%;
+        background-color: #c10c06;
+        .logo{
+            width: 42%;
+            margin: 0 auto;
+            height: 685px;
+            background-image: url('../../assets/img/logo.png');
+        }
+
+    }
+    .copy_right{
+        .author{
+            font-size: 20px;
+            font-weight: 100;
+        }
+        .project_info{
+            font-size: 12px;
+            font-weight: 100;
+        }
+    }
 }
