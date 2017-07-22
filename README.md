@@ -86,8 +86,7 @@ According to the given User Stories shown in the project description, there are 
 ## TODO
 
 Due to the time limitation and the project scope(front-end project), there are ineed other aspects which could be improve:
-- [*] Add CSS and better layout improve UI (since UI is not part of the evalution, so I basically skipped it for now)
+- [x] Add CSS and better layout improve UI (since UI is not part of the evalution, so I basically skipped it for now)
 - [ ] Move the data validation from front-end to back-end
 - [ ] End-to-end testing using protractor
 - [ ] Setup admin login logic so that only admin will have the right to view the application wide scope of data         and manage participants
-
